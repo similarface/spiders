@@ -12,13 +12,13 @@ class CnblogsSpider(CrawlSpider):
     allowed_domains=['cnblogs.com']
     #入口
     start_urls=[
-        'http://www.cnblogs.com/rwxwsblog/default.html?page=0'
+        'http://www.cnblogs.com/similarface/default.html?page=0'
     ]
     # 定义爬取URL的规则，并指定回调函数为parse_item
     # #此处要注意?号的转换，复制过来需要对?号进行转换。
     rules = [
         ##此处要注意?号的转换，复制过来需要对?号进行转换。
-        Rule(LinkExtractor(allow=('/rwxwsblog/default.html\?page=\d{1,}',)),follow=True, callback='parse_item')
+        Rule(LinkExtractor(allow=('/similarface/default.html\?page=\d{1,}',)),follow=True, callback='parse_item')
     ]
     def parse_item(self, response):
         sel=Selector(response)
