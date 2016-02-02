@@ -62,9 +62,13 @@ class CommonSpider(CrawlSpider):
 
     # Extract content without any extra spaces.
     # NOTE: If content only has spaces, then it would be ignored.
+    '''
+    将select选择器选中的数据进行处理返回list
+    '''
     def extract_item(self, sels):
         contents = []
         for i in sels:
+            #匹配任何不可见字符，包括空格、制表符、换页符等等。等价于[ \f\n\r\t\v]。
             content = re.sub(r'\s+', ' ', i.extract())
             if content != ' ':
                 contents.append(content)
@@ -85,6 +89,13 @@ class CommonSpider(CrawlSpider):
 
     # 1. item是一个单独的item，所有数据都聚合到其中 *merge
     # 2. 存在item列表，所有item归入items
+    '''
+    sel selector选择器
+    rules 规则
+    item_class
+    item None
+    items 空的list
+    '''
     def traversal(self, sel, rules, item_class, item, items):
         # print 'traversal:', sel, rules.keys()
         if item is None:
@@ -107,6 +118,7 @@ class CommonSpider(CrawlSpider):
             print(sth)
 
     def deal_text(self, sel, item, force_1_item, k, v):
+        #如果值是已::text结尾 并且 auto_join_text＝True
         if v.endswith('::text') and self.auto_join_text:
             item[k] = ' '.join(self.extract_item(sel.css(v)))
         else:
@@ -120,15 +132,26 @@ class CommonSpider(CrawlSpider):
                 item[k] = _items
 
     keywords = set(['__use', '__list'])
+
+    '''
+    sel selector选择器
+    rules 规则 是一个字典
+    item_class 空字典
+    item None
+    items 空的list
+    '''
     def traversal_dict(self, sel, rules, item_class, item, items, force_1_item):
         #import pdb; pdb.set_trace()
         item = {}
         for k, v in rules.items():
+            #如果值不是一个字典
             if type(v) != dict:
+                #
                 if k in self.keywords:
                     continue
                 if type(v) == list:
                     continue
+                #
                 self.deal_text(sel, item, force_1_item, k, v)
                 #import pdb;pdb.set_trace()
             else:
@@ -138,14 +161,25 @@ class CommonSpider(CrawlSpider):
                     self.traversal_dict(i, v, item_class, item, item[k], force_1_item)
         items.append(item)
 
+    '''
+    (response,self.list_css_rules,dict,True)
+    sel 表示selecter 选择器
+    rules 规则 是一个字典
+    item_class 字典
+    force_1_item True
+    '''
     def dfs(self, sel, rules, item_class, force_1_item):
+        #如果选择器是None 返回[]
         if sel is None:
             return []
-
+        #
         items = []
+        #如果item_class 不是字典
         if item_class != dict:
+            #
             self.traversal(sel, rules, item_class, None, items, force_1_item)
         else:
+            #是字典的情况下
             self.traversal_dict(sel, rules, item_class, None, items, force_1_item)
 
         return items

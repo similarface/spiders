@@ -27,13 +27,6 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 2.7.6 (/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7)" project-jdk-type="Python SDK" />
-  <component name="PyConsoleOptionsProvider">
-    <option name="myPythonConsoleState">
-      <console-settings sdk-home="/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7">
-        <option name="mySdkHome" value="/System/Library/Frameworks/Python.framework/Versions/2.7/bin/python2.7" />
-      </console-settings>
-    </option>
-  </component>
   <component name="masterDetails">
     <states>
       <state key="ScopeChooserConfigurable.UI">

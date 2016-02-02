@@ -22,6 +22,9 @@ class FreeProxyListItem(scrapy.Item):
     country=Field()
     #是否匿名
     anonymity=Field()
+    #google
     google = Field()
+    #是否是https
     https = Field()
+    #最后更新时间
     last_checked = Field()

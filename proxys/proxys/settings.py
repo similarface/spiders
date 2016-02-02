@@ -9,12 +9,12 @@ NEWSPIDER_MODULE = 'proxys.spiders'
 
 DOWNLOADER_MIDDLEWARES = {
    # 'misc.middleware.CustomHttpProxyMiddleware': 400,
-    'misc.middleware.CustomUserAgentMiddleware': 401,
+    'common.middleware.CustomUserAgentMiddleware': 401,
 }
 
 ITEM_PIPELINES = {
     #json存储
-    'proxylist.pipelines.JsonWithEncodingPipeline': 300,
+    'proxys.pipelines.JsonWithEncodingPipeline': 300,
     #redis存储
     #'proxylist.pipelines.RedisPipeline': 301,
     #mysql存储
