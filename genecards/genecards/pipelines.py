@@ -13,7 +13,7 @@ import codecs
 #放入到
 class GenecardsPipeline(object):
     def __init__(self):
-        self.file=codecs.open('genecards_similarface_data.json',mode='wb', encoding='utf-8')
+        self.file=codecs.open('genecards_similarface_data_999.json',mode='wb', encoding='utf-8')
 
     def process_item(self, item, spider):
         line=json.dumps(dict(item))+'\n'
@@ -31,8 +31,8 @@ class MySQLStoreGenecardsPipeline(object):
         try:
             l = ['rsid','genename','gytogeneticband']
             self.cursor.execute("""
-                INSERT INTO t_genecards_rsid_gname(rsid,genename,gytogeneticband)
-                VALUES (%s, %s, %s)""",
+                INSERT INTO t_genecards_rsid_gname(rsid,genename,gytogeneticband,version)
+                VALUES (%s, %s, %s,'999')""",
                [item[i] for i in l]
             )
             self.conn.commit()
